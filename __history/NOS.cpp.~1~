@@ -1,0 +1,114 @@
+#include "NOS.h"
+
+CNo::CNo(const int& I, const double& x1, const double& x2, const double& y1, const double& y2)
+{
+  this->I=I;
+  X[0][0]=x1;
+  X[0][1]=x2;
+  X[1][0]=y1;
+  X[1][1]=y2;
+  CC[0]=0;
+  CC[1]=0;
+  CC[0]=0;
+  CC[1]=0;
+  
+  
+  vCC[0]=0.0;
+  vCC[1]=0.0;
+  P[0]=0.0;
+  P[1]=0.0;
+  en[0]=0;
+  en[1]=0;
+  
+  FP=0;
+  
+  no_E.resize(3*3,0.0);
+  no_S.resize(3*3,0.0);
+  no_ue=0.0;
+}
+
+void Le_Nos(tvNo& No, const std::string& NAr)
+{
+  int nNo;            ///< Numero de nos a ser lido
+  char s[1000];       ///< Variavel auxiliar
+  std::ifstream Ent;  ///< Arquivo de leirura
+  Ent.open(NAr.c_str());
+  Ent.getline(s,1000);
+  Ent >>  nNo; Ent.getline(s,1000);
+  Ent.getline(s,1000);
+  for (int i=0; i<nNo; i++) 
+  {
+    double x[2],y[2];
+    int I;
+    Ent >> I >> x[0] >> x[1]; Ent.getline(s,1000);
+    y[0]=x[0];
+    y[1]=x[1];
+    CNo LeNo(I,x[0],x[1],y[0],y[1]);
+    No.push_back(LeNo);
+  }
+  Ent.close();
+}
+
+void Le_CC(tvNo& No, const std::string& NAr, int& ngl)
+{
+  int nCC;            ///< Numero de nos a ser lido
+  char s[1000];       ///< Variavel auxiliar
+  std::ifstream Ent;  ///< Arquivo de leirura
+  Ent.open(NAr.c_str());
+  Ent.getline(s,1000);
+  Ent >>  nCC; Ent.getline(s,1000);
+  Ent.getline(s,1000);
+  for (int i=0; i<nCC; i++) 
+  {
+    int no;
+    int dir;
+    double vCC;
+    Ent >> no >> dir >> vCC; Ent.getline(s,1000);
+    No[no].w_CC(dir,1);
+    No[no].w_vCC(dir,vCC);
+    No[no].w_X(1,dir,vCC);
+  }
+  int k,n;
+  k=0;
+  n=0;
+  for (int i=0; i<No.size(); i++) 
+  {
+    for (int j=0; j<2; j++) 
+    {
+      if (No[i].r_CC(j)==0)
+      {
+        k=k+1;
+        No[i].w_en(j,k-1);
+      }
+      else
+      {
+        No[i].w_en(j,-1);
+      }
+    }
+  }
+  ngl=k;
+  Ent.close();
+}
+
+
+void Le_P(tvNo& No, const std::string& NAr)
+{
+  int nP;            ///< Numero de nos a ser lido
+  char s[1000];       ///< Variavel auxiliar
+  std::ifstream Ent;  ///< Arquivo de leirura
+  Ent.open(NAr.c_str());
+  Ent.getline(s,1000);
+  Ent >>  nP; Ent.getline(s,1000);
+  Ent.getline(s,1000);
+  for (int i=0; i<nP; i++) 
+  {
+    int no;
+    int dir;
+    double P;
+    Ent >> no >> dir >> P; Ent.getline(s,1000);
+    No[no].w_P(dir,P);
+  }
+  Ent.close();
+}
+
+

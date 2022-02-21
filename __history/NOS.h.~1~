@@ -1,0 +1,63 @@
+#ifndef HNOSH
+#define HNOSH
+
+#include <vector>
+#include <fstream>
+#include <iostream> //std::cout
+#include "ALG.h"
+
+class CVAR
+{
+  V2D    X[2][2];	///< coordenadas iniciais e finais do no;
+  V2D    U[2];      ///< Deslocamento do Nó;
+  V1D    E[9];      ///< Deformação de Cauchy-Green
+  V1D    S[9];      ///< Tensão de Cauchy-Green
+};
+
+///Classe: Nos Geometricos
+class CNo
+{
+  private:
+    int I;	        ///< numero do no;
+    double X[2][2];	///< coordenadas iniciais e finais do no;
+    int CC[2];      ///< condicao de contorno (1 para vincuado, 0 para livre)
+    double vCC[2];  ///< condicao de contorno (valor do deslocamento prescrito)
+    double P[2];    ///< Carga concentrada no nó;
+    int en[2];      ///< enderecamento das coordenadas globais;
+    int FP;         ///< 0: se não faz parte da estrutura ou 1: se faz parte da estrutura;
+
+    V1D    no_E;    ///< Deformação de Cauchy-Green       
+    V1D    no_S;    ///< Tensão de Cauchy-Green
+    double no_ue;   ///< Energia específica de deformação 
+    
+  public:
+    int    r_I    () {return(I);}                 ///<retorna o numero do no;
+    double r_X    (int estado, int dir) {return(X[estado][dir]);}  ///<retorna a coordenada X(i) do no no estado 0 ou 1;
+    void   w_X    (int estado, int dir, double nX) {X[estado][dir]=nX;}  ///<altera a coordenada X(i) do no no estado 0 ou 1;
+    int    r_CC   (int dir)             {return ( CC[dir]);}
+    void   w_CC   (int dir, int val)    {CC[dir]=val;}
+    double r_vCC  (int dir)             {return (vCC[dir]);}
+    void   w_vCC  (int dir, double val) {vCC[dir]=val;}
+    int    r_en   (int dir) {return (en[dir]);}
+    void   w_en   (int dir, int val) {en[dir]=val;}
+    double r_P    (int dir) {return (P[dir]);}
+    void   w_P    (int dir, double val) {P[dir]=val;}
+    double r_FP   (       ) {return (FP);}
+    void   w_FP   (int val) {FP=val;}
+    double r_no_E (int k1 ) {return (no_E[k1]);}
+    void   w_no_E (int k1, double Val) {no_E[k1]=Val;}
+    double r_no_S (int k1 ) {return (no_S[k1]);}
+    void   w_no_S (int k1, double Val) {no_S[k1]=Val;}
+    double r_no_ue() {return (no_ue);}
+    void   w_no_ue(double Val) {no_ue=Val;}
+    CNo(const int& , const double& , const double& , const double& , const double&);      ///<funcao contrtutora;
+};
+
+typedef std::vector< CNo > tvNo;	//Vetor Nos Geometricos
+
+void Le_Nos(tvNo& No, const std::string& NAr);
+void Le_CC(tvNo& No, const std::string& NAr, int& ngl);
+void Le_P(tvNo& No, const std::string& NAr);
+
+
+#endif

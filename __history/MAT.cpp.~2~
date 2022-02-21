@@ -1,0 +1,34 @@
+#include "MAT.h"
+
+CMa::CMa(const int& _I, const double& _E0, const double& _Ps0)
+{
+  I=_I;
+  E0=_E0;
+  Ps0=_Ps0;
+  Et=E0/(2.0*(1.0+Ps0));
+  Kd=E0/(3.0*(1.0-2.0*Ps0));
+  lameM=Et;
+  lameL=2.0*Et*Ps0/(1.0-2.0*Ps0);
+}
+
+tvMa Le_Mat(const std::string& NAr)
+{
+  tvMa Ma;
+  int i,nMa;
+  char s[1000];
+  std::ifstream Ent; // para leitura
+  Ent.open(NAr.c_str());
+  Ent.getline(s,1000);
+  Ent >>  nMa; Ent.getline(s,1000);
+  Ent.getline(s,1000);
+  for (i=0; i<nMa; i++) 
+  {
+	double _E0;
+	double _Ps0;
+	int I;
+	Ent >> I >> _E0 >> _Ps0; Ent.getline(s,1000);
+	Ma.push_back(CMa(I,_E0,_Ps0));
+  }
+  Ent.close();
+  return Ma;
+}

@@ -1,0 +1,33 @@
+#ifndef HMATH
+#define HMATH
+
+#include <vector>
+#include <fstream>
+#include "ALG.h"
+
+///Classe: Material
+class CMa
+{
+  private:
+    int  I;     ///<Numero
+	double E0;	///<Modulo de elasticidade
+    double Ps0;	///<Coeficiente de Poisson
+    double Et;	///<Modulo de elasticidade Trasnversal
+    double Kd;	///<Bulk Modulus (Eu Acho)
+	double lameM;	///<Segunda Constante de lame = G
+	double lameL;	///<Primeira Constante de Lame = 2*G*Ps/(1-2*Ps)
+  public:
+    int  r_I() {return (I);}
+    double r_E0() {return (E0);}
+    double r_Ps0() {return (Ps0);}
+    double r_Et() {return (Et);}
+    double r_Kd() {return (Kd);}
+    double r_lameM() {return (lameM);}
+    double r_lameL() {return (lameL);}
+    CMa(const int& I, const double& E0, const double& Ps0);
+};
+typedef std::vector< CMa > tvMa;	//Vetor Material
+
+tvMa  Le_Mat(const std::string& NAr);
+
+#endif

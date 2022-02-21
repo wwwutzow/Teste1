@@ -1,0 +1,18 @@
+Informe a pasta dos dados: 
+C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\exemplo01\
+Informe o arquivo de Materiais:
+listademateriais.txt
+Informe o arquivo de Nos:
+listadenos.txt
+Informe o arquivo de Condicoes de contorno  em deslocamento:
+listadecondcon.txt
+Informe o arquivo de Cargas concentradas aplicadas nos nos da estrutura:
+listadePconcentr.txt
+Informe o arquivo de Elementos:
+listadeelementos.txt
+Informe o arquivo de Quadraturas:
+listadequadraturas.txt
+Informe o arquivo de Relatorios:
+resultados\relatorio.txt
+Informe o arquivo para o Paraview:
+resultados\resultados.vtk

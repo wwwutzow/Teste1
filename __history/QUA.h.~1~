@@ -1,0 +1,33 @@
+#ifndef HQUAH
+#define HQUAH
+
+#include <vector>
+#include <fstream>
+#include <math.h>
+#include "ALG.h"
+
+class CQuadratura  //Dunavant 2D Triangulo
+{
+  private:
+    int I;                              ///< Numero da quadratura;   
+    int N;                              ///< numero de pontos da quadratura;
+    int A;                              ///< grau de aproximacao da quadratura;
+    int nXsi;                           ///< numero de coordenadas adimensionais xsi;
+    V2D  Xsi;                           ///< coordenada Xsi;
+    V1D  W;                             ///< pesos da quadratura;    
+    void FPDunavant();                  ///< Funcao que gera os pontos de Dunavant no intervalo de 0 a 1 no triangulo (pontos de integracao 2D) de grau 1 a 20;
+  public:
+    CQuadratura(int I, int& A);  ///< construtor das coordenadas Xsi e dos respectivos pesos da Quadratura;
+    ~CQuadratura();                     ///< destrutor da classe
+    int r_I () {return (I);}            ///< Numero da quadratura
+    int r_N () {return (N);}            ///< numero de pontos da quadratura;
+    int r_A () {return (A);}            ///< Grau de aproximacao da quadratura;
+    int r_nXsi () {return (nXsi);}          ///< Numero de coordenadas adimensionais xsi;
+    V1D r_Xsi (int pto) {return (Xsi[pto]);}    ///< retorna a coordenada de Xsi(i);
+    double r_W (int i) {return (W[i]);} ///< retorna o peso de gauss W(i);
+};
+typedef std::vector< CQuadratura> tvQuadratura;
+
+void Le_Quadraturas(tvQuadratura& Qua, const std::string& NAr);
+
+#endif

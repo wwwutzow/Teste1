@@ -1,0 +1,148 @@
+﻿#ifndef HELMH
+#define HELMH
+
+#include "ALG.h"
+#include "NOS.h"
+#include "MAT.h"
+#include "QUA.h"
+#include "CCO.h"
+#include <vector>   //std::vector
+#include <fstream>  //entrada e saida em arquivos
+#include <iostream> //std::cout
+
+///Classe: Elementos Finitos
+class CEl
+{
+  private:
+    int I;                      ///<Numero do elemento finito
+    int NN;                     ///<Numero de nos
+    int NN1m;                   ///<numero de nos do elemento com grau do polinomio uma vez menor
+    int d;                      ///<Dimensoes do elemento 1:1D 2:2D ou 3:3D;
+    int Pe;                     ///<Grau do polinomio aproximador do elemento;
+    int Ped;                    ///<Grau da primeira derivada do polinomio aproximador do elemento;
+    std::vector< CNo * > No;	///<nos do elemento(ponteiro)
+    std::vector< int > no;      ///<numero global dos nos do elemento
+    CMa *Ma;                    ///<Material do elemento (ponteiro)
+    int ma;                     ///<numero do Material do elemento
+    CQuadratura *Qua;           ///<Quadratura de integracao (ponteiro)
+    int qua;                    ///<numero da Quadratura de integracao
+    CCo *Co;                    ///<Configuracoes como arquivo de entrada (ponteiro)
+
+// Variáveis armazenadas para cada nó do elemento:
+	std::vector< V1D > Xsi;     ///<Coordenadas adimensionais dos nós do elemento no espaço homogêneo
+	V2D FF;                      ///<Coeficientes das Funcoes de forma
+	std::vector< V2D > dFF;     ///<Coeficientes das Derivadas direcionais das Funcoes de forma
+	V1D Fint;                   ///< Vetor de forças internas
+    V2D H;                      ///< Matrix Hesiana
+	std::vector< V1D >  no_E;   ///< Deformação de Green-Lagrange
+	std::vector< V1D >  no_S;   ///< Tensão de PiolaKirchhoff de 1a Espécie
+	std::vector< double > no_ue;///< Energia específica de deformação
+
+    V2D M;   ///< Matrix de Massa
+    
+    
+    
+    
+
+// Variáveis armazenadas por elemento:
+	double Ue;                  ///< Energia de deformação
+// Variáveis armazenadas para cada ponto de integração do elemento:
+	std::vector< V1D >  PHI;    ///< Valor das funções de forma nos pontos de integração
+	std::vector< V2D >  DPHI;   ///< Valor da primeira derivada das funcoes de forma nos pontos de integração
+
+    
+    std::vector< V1D >  X;      ///< Posição do ponto de integração na configuração inicial
+	std::vector< V2D >  A0;     ///< Gradiente de tranformação inicial
+    std::vector< double > J0;   ///< Determinante do Gradiente de tranformação inicial (jacobiano da transformação)
+    std::vector< V2D >  D;      ///< Matriz inversa da Gradiente de tranformação inicial
+    std::vector< V1D >  Y;      ///< Posição do ponto de integração na configuração final
+    std::vector< V2D >  A1;     ///< Gradiente de tranformação final
+    std::vector< double > J1;   ///< Determinante do Gradiente de tranformação final (jacobiano da transformação)
+    std::vector< V2D >  A;      ///< Gradiente de transformação total
+	std::vector< V2D >  C;      ///< Tensor de dilatação ou Tensor das deformações de Cauchy-Green
+	std::vector< V1D >  E;      ///< TensorDeformação de Cauchy-Green?? acho que é green-lagrange!!!!
+	std::vector< V2D >  CC;     ///< Tensor constitutivo de Piola Kirchhoff de segunda espécie
+	std::vector< V1D >  S;      ///< Tensão de Cauchy-Green?? acho que é de green-lagrange!!!!
+	std::vector< double > ue;   ///< Energia específica de deformação
+	std::vector< V1D >  fint;   ///< Vetor de forças específica* internas
+	std::vector< V2D >  h;      ///< Matrix Hesiana específica*
+    
+	std::vector< V2D > m; ///< Matrix de Massa espefífica
+    
+    int c_NN1m();
+  public:
+    int  r_I() {return (I);}            ///<retorna o Numero do elemento finito
+    int  r_NN() {return (NN);}          ///<retorna o Numero de nos
+    int  r_NN1m() {return (NN1m);}      ///<retorna o numero de nos do elemento com grau do polinomio uma vez menor   
+    int  r_d() {return (d);}            ///<retorna a Dimensão do elemento 1 2 ou 3;
+    int  r_Pe() {return (Pe);}          ///<retorna o Grau do polinomio aproximador do elemento;
+    int  r_Ped() {return (Ped);}        ///<retorna o Grau da primeira derivada do polinomio aproximador do elemento;
+    std::vector< V1D > r_Xsi() {return (Xsi);} 
+	std::vector< V1D > r_FF() {return (FF);}
+        
+    CNo *r_No(int i) {return (No[i]);}  ///<retorna os nós geometricos (ponteiro)
+    int r_no(int i) {return (no[i]);}   ///<retorna o numero global do no geometrico
+    CMa *r_Ma() {return (Ma);}          ///<retorna o material do elemento (ponteiro)
+    int r_ma() {return (ma);}           ///<retorna o número do material do elemento
+    CQuadratura *r_Qua() {return (Qua);}///<retorna a Quadratura de integracao (ponteiro)
+    int r_qua() {return (qua);}         ///<retorna o numero da Quadratura de integracao
+    CCo *r_Co() {return (Co);}          ///<retorna Configuracoes como arquivo de entrada (ponteiro)
+    double r_H(int i, int j) {return (H[i][j]);}
+    double r_M(int i, int j) {return (M[i][j]);}
+    double r_E(int n, int i) {return (E[n][i]);}
+    double r_S(int n, int i) {return (S[n][i]);}
+    double r_ue(int n) {return (ue[n]);}
+    double r_Fint(int i) {return (Fint[i]);}
+    double r_PHI(int iQua,int iNo) {return (PHI[iQua][iNo]); }
+    V1D  r_no_E(int nno) { return no_E[nno]; }    ///< retorna Deformação de Cauchy-Green no no escolhido
+    V1D  r_no_S(int nno) { return no_S[nno]; }    ///< retorna a Tensão de Cauchy-Green no no escolhido
+
+    void  w_no_E(int nno,int i,double val) {no_E[nno][i]=val; }    ///< retorna Deformação de Cauchy-Green no no escolhido
+    void  w_no_S(int nno,int i,double val) {no_S[nno][i]=val; }    ///< retorna a Tensão de Cauchy-Green no no escolhido
+
+    double r_no_ue(int nno) { return no_ue[nno]; }   ///< retorna a Energia específica de deformação no no escolhido
+    void   w_no_ue(int nno,double val) {no_ue[nno]=val; }
+    double r_no_Y(int nno,int dir) { return No[nno]->r_X(1,dir); }   ///< retorna a posicao deslocada do no escolhido
+    double r_no_U(int nno,int dir) { return (No[nno]->r_X(1,dir)-No[nno]->r_X(0,dir)); }   ///< retorna o deslocamento do no escolhido
+    
+    
+	CEl(const int&, const int&, const int&, tvMa&, const int&, const V1I&, tvNo&, const int&, tvQuadratura&, CCo&);
+	void ite();
+
+
+
+
+	void Imp_Rel_Geral();
+	std::vector < std::vector <int > >  TriL(const int& Pe);
+    ~CEl();
+};
+typedef std::vector< CEl > tvEl; //Vetor de Elementos finitos
+
+V2D c_Xsi(const int& NN, const int& Pe, const int& d);  ///<calcula as Coordenadas adimensionais dos nós do elemento no espaço homogêneo
+V2D c_FF (const int& NN, const int& Pe, const V2D& Xsi); ///< calcula os Coeficientes das Funcoes de forma
+V3D c_dFF(const int& NN, const int& Pe, const int& d, const int& Ped, const int& NN1m, const V2D& FF); ///<Calcula os Coeficientes das Derivadas direcionais das Funcoes de forma
+V1D calc_PHI (const int& Pe, const int& NN, const int d, const V1D& Xsi, const V2D&  FF); ///< Calcula o Valor das funções de forma nos pontos de integração
+V2D calc_DPHI(const int& Pe, const int& NN, const int d, const V1D& Xsi, const V3D& dFF); ///< Calcula o Valor da primeira derivada das funcoes de forma nos pontos de integração
+V1D calc_Xn  (const int& d, const V1D&  PHI, std::vector< CNo * > No, const int estado);  ///< Calcula a Posição do ponto de integração na configuração inicial
+V2D calc_An  (const V2D& DPHI, std::vector< CNo * > No, const int estado);  ///< Calcula o Gradiente de tranformação inicial ou final (n=estado)
+V1D calc_Ei  (const V2D& Ci);
+V2D calc_CC  (const int& d, CMa *Ma);
+V1D calc_S   (const int& d, const V1D& Ei, V2D& CCi);
+double c_ue(const V1D& E, CMa *Ma);
+void calc_Fint_H_M(const V1D& PHI, const V2D& DPHI, const V2D& Di, const V2D& Ai, const V1D& Si, const V2D& CCi, V1D& finti, V2D& hi, V2D& mi);
+
+void cpto(const int& Pe,const int& NN,const int& d,const V1D XsiNo,const V2D& FF,const V3D& dFF,  std::vector< CNo * > No, CMa *Ma, V1D& E, V1D& S, double& ue);
+
+
+
+
+void Le_Elementos(tvEl& El, tvNo& No, tvMa& Ma, tvQuadratura& Qua, CCo& Co);
+
+
+
+
+
+
+
+
+#endif

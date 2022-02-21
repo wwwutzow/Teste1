@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/08/20 10:17:25.000.431,=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021/08/20 10:17:25.000.506,=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2021/09/24 15:05:29.000.519,=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021/09/24 15:05:29.000.590,=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2021/09/28 13:34:04.000.253,=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2021/09/28 13:34:04.000.036,=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021/11/23 17:17:19.000.618,=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2021/11/23 17:17:19.000.576,=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021/11/23 17:19:09.000.167,C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\main.cpp=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2021/11/23 17:19:14.000.911,C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\main.h=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021/11/23 17:19:18.000.972,C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\Project1.cbproj=C:\Users\wesle\OneDrive\Antigos\Documentos\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2021/11/23 17:20:26.000.494,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\CCO.h</Transaction>
+    <Transaction>2021/11/23 17:20:26.000.529,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\QUA.h</Transaction>
+    <Transaction>2021/11/23 17:20:26.000.509,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\LAP.h</Transaction>
+    <Transaction>2021/11/23 17:20:26.000.517,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\MAT.h</Transaction>
+    <Transaction>2021/11/23 17:20:26.000.522,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\NOS.h</Transaction>
+    <Transaction>2021/11/23 17:20:26.000.488,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\ALG.h</Transaction>
+    <Transaction>2021/11/23 17:20:26.000.502,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\ELM.h</Transaction>
+    <Transaction>2021/11/23 17:20:35.000.211,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\ALG.cpp</Transaction>
+    <Transaction>2021/11/23 17:20:35.000.227,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\ELM.cpp</Transaction>
+    <Transaction>2021/11/23 17:20:35.000.241,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\MAT.cpp</Transaction>
+    <Transaction>2021/11/23 17:20:35.000.249,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\NOS.cpp</Transaction>
+    <Transaction>2021/11/23 17:20:35.000.259,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\QUA.cpp</Transaction>
+    <Transaction>2021/11/23 17:20:35.000.219,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\CCO.cpp</Transaction>
+    <Transaction>2021/11/23 17:20:35.000.235,=C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\LAP.cpp</Transaction>
+    <Transaction>2021/11/23 17:21:22.000.997,C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\LAP.h=</Transaction>
+    <Transaction>2021/11/23 17:21:23.000.010,C:\Users\wesle\OneDrive\Área de Trabalho\4070 Aulas\PFEM\Codigos\Teste01\LAP.cpp=</Transaction>
+  </Transactions>
+</BorlandProject>

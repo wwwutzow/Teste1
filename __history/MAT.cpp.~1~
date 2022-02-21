@@ -1,0 +1,62 @@
+#include "MAT.h"
+
+CMa::CMa(const int& I, const double& E0, const double& Ps0)
+{
+  this->I=I;
+  this->E0=E0;
+  this->Ps0=Ps0;
+  Et=this->E0/(2.0*(1.0+this->Ps0));
+  Kd=this->E0/(3.0*(1.0-2.0*this->Ps0));
+  lameM=Et;
+  lameL=2.0*Et*this->Ps0/(1.0-2.0*this->Ps0);
+    /*
+     if (Ex.Dom[i].EPT==1)
+     {
+     Ex.Dom[i].Ps=Ex.Dom[i].mEl->Ps0/(1+Ex.Dom[i].mEl->Ps0);
+     Ex.Dom[i].Ks=0.0;
+     Ex.Dom[i].Ke=(-Ex.Dom[i].mEl->Ps0)/(1.0-Ex.Dom[i].mEl->Ps0); //verificar este menos aqui!!!!
+     }
+     else
+     {
+     Ex.Dom[i].Ps=Ex.Dom[i].mEl->Ps0;
+     Ex.Dom[i].Ks=Ex.Dom[i].mEl->Ps0;
+     Ex.Dom[i].Ke=0.0;
+     }
+     Ex.Dom[i].E2d.clear();
+     Ex.Dom[i].G2d.clear();
+     Ex.Dom[i].E2d(0,0)=((2.0*Ex.Dom[i].mEl->Et)*(1-    Ex.Dom[i].Ps)/(1.0-2.0*Ex.Dom[i].Ps));
+     Ex.Dom[i].E2d(0,1)=0.0;
+     Ex.Dom[i].E2d(0,2)=((2.0*Ex.Dom[i].mEl->Et)*(      Ex.Dom[i].Ps)/(1.0-2.0*Ex.Dom[i].Ps));
+     Ex.Dom[i].E2d(1,0)=0.0;
+     Ex.Dom[i].E2d(1,1)=((2.0*Ex.Dom[i].mEl->Et)                                            );
+     Ex.Dom[i].E2d(1,2)=0.0;
+     Ex.Dom[i].E2d(2,0)=((2.0*Ex.Dom[i].mEl->Et)*(      Ex.Dom[i].Ps)/(1.0-2.0*Ex.Dom[i].Ps));
+     Ex.Dom[i].E2d(2,1)=0.0;
+     Ex.Dom[i].E2d(2,2)=((2.0*Ex.Dom[i].mEl->Et)*(1.0-  Ex.Dom[i].Ps)/(1.0-2.0*Ex.Dom[i].Ps));
+     Ex.Dom[i].G2d=true_inv(Ex.Dom[i].E2d);
+     Ex.Dom[i].mFl->KH=Ex.Dom[i].mEl->KinH/Ex.Dom[i].mFl->MiH;      
+     */ 
+}
+
+tvMa Le_Mat(const std::string& NAr)
+{
+  tvMa Ma;
+  int i,nMa;
+  char s[1000];
+  std::ifstream Ent; // para leitura
+  Ent.open(NAr.c_str());
+  Ent.getline(s,1000);
+  Ent >>  nMa; Ent.getline(s,1000);
+  Ent.getline(s,1000);
+  for (i=0; i<nMa; i++) 
+  {
+    double E0;
+    double Ps0;
+    int I;
+    Ent >> I >> E0 >> Ps0; Ent.getline(s,1000);
+    CMa Le_Ma(I,E0,Ps0);
+    Ma.push_back(Le_Ma);
+  }
+  Ent.close();
+  return Ma;
+}

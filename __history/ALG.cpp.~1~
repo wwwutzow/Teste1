@@ -1,0 +1,116 @@
+#include "ALG.h"
+
+V2D Inv22(const V2D&  A)
+{
+  V2D C; C.resize(2, V1D (2,0.0));
+  C[0][0]=(+A[1][1])/(A[0][0]*A[1][1]-A[0][1]*A[1][0]);
+  C[0][1]=(-A[0][1])/(A[0][0]*A[1][1]-A[0][1]*A[1][0]);
+  C[1][0]=(-A[1][0])/(A[0][0]*A[1][1]-A[0][1]*A[1][0]);
+  C[1][1]=(+A[0][0])/(A[0][0]*A[1][1]-A[0][1]*A[1][0]);
+  return C;
+};
+
+V2D MM(const V2D&  A, const V2D& B)
+{
+  V2D C;
+  C.resize(A.size(), V1D (B[0].size(),0.0));
+  for (int i=0; i<A.size(); i++) 
+  {
+    for (int j=0; j<B[0].size(); j++) 
+    {
+      for (int k=0; k<A[0].size(); k++) 
+      {
+        C[i][j]=C[i][j]+A[i][k]*B[k][j];
+      }
+    }
+  }
+  return C;
+};
+
+V1D MV(const V2D&  M, const V1D& V)
+{
+  V1D C;
+  C.resize(M.size(),0.0);
+  for (int i=0; i<M.size(); i++)
+  {
+    for (int j=0; j<M[0].size(); j++)
+    {
+      C[i]=C[i]+M[i][j]*V[j];
+    }
+  }
+  return C;
+};
+
+V2D MtM(const V2D&  A, const V2D& B)
+{
+  V2D C;
+  C.resize(A[0].size(), V1D (B[0].size(),0.0));
+  for (int i=0; i<A[0].size(); i++) 
+  {
+    for (int j=0; j<B[0].size(); j++) 
+    {
+      for (int k=0; k<A.size(); k++) 
+      {
+        C[i][j]=C[i][j]+A[k][i]*B[k][j];
+      }
+    }
+  }
+  return C;
+};
+
+V2D Mt(const V2D&  A)
+{
+  V2D C;
+  C.resize(A[0].size(), V1D (A.size(),0.0));
+  for (int i=0; i<A[0].size(); i++) 
+  {
+    for (int j=0; j<A.size(); j++) 
+    {
+      C[i][j]=A[j][i];
+    }
+  }
+  return C;
+};
+
+V2D MtpM(const V2D&  A, const V2D& B)
+{
+  V2D C;
+  C.resize(A[0].size(), V1D (A.size(),0.0));
+  for (int i=0; i<A[0].size(); i++) 
+  {
+    for (int j=0; j<A.size(); j++) 
+    {
+      C[i][j]=A[j][i]+B[i][j];
+    }
+  }
+  return C;
+};
+
+double Det( const V2D& m ) 
+{
+  double res=0.0;
+  V1I Ind;
+  Ind.resize(2*m.size(),0.0);
+  for (int i=0; i<m.size(); i++) 
+  {
+    Ind[i]=i;
+    Ind[m.size()+i]=i;
+  }
+  
+//não ta bom isso, melhorar!!!!!!!!!!!!!!!
+  int k;
+  if (m.size()>2) {k=0;} else {k=1;}
+  for (int i=0; i<m.size()-k; i++) 
+  {
+    double a=1.0;
+    double b=1.0;
+    for (int j=0; j<m[0].size(); j++) 
+    {
+      a=a*m[Ind[j]][Ind[j+i]];
+      b=b*m[Ind[m.size()-1-j]][Ind[j+i]];
+    }
+    
+    res=res+a-b;
+  }
+  return res;
+};
